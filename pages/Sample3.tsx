@@ -33,24 +33,39 @@ export default function Sample3() {
   }, []);
 
   const sampleCode = `
-// useGLTF フックで外部ファイル(URL)を読み込みます。
-// URL.createObjectURL() を使うことで、
-// ユーザーがアップロードしたローカルファイルを表示できます。
+import { useGLTF } from "@react-three/drei";
 
+// アップロードされたファイルを表示するコンポーネント
 export function UploadedModel({ url, scale, rotationSpeed }) {
+  // useGLTF: GLB/GLTFファイルをロードしてシーンオブジェクトを返す
+  // 外部URLやBlob URLに対応しています
   const { scene } = useGLTF(url);
   const ref = useRef();
   
-  // モデルサイズに合わせて位置を自動調整
-  // ... (Box3計算ロジック)
-
-  // 回転アニメーション
+  // モデルサイズに合わせて位置を自動調整するロジック(省略)
+  // ...
+  
+  // useFrameで回転アニメーションを適用
+  // 親コンポーネントから受け取った rotationSpeed を使用
   useFrame((state, delta) => {
-    if (rotationSpeed > 0) ref.current.rotation.y += delta * rotationSpeed;
+    if (rotationSpeed !== 0 && ref.current) {
+      ref.current.rotation.y += delta * rotationSpeed;
+    }
   });
   
+  // primitive: Three.jsのオブジェクト(scene)をそのままReactツリーに追加します
   return <primitive object={scene} ref={ref} scale={scale} />;
 }
+
+// 【親コンポーネントでのファイル処理】
+const handleFileChange = (e) => {
+  const file = e.target.files[0];
+  // URL.createObjectURL(): 
+  // ブラウザのメモリ上にあるファイルオブジェクトへの一時的なアクセスURLを生成
+  // これにより、サーバーにアップロードせずにローカルファイルを表示できます
+  const url = URL.createObjectURL(file);
+  setFileUrl(url);
+};
 `;
 
   return (
@@ -164,19 +179,28 @@ export function UploadedModel({ url, scale, rotationSpeed }) {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-sm">
                     <div className="flex items-center gap-2 text-slate-700 font-medium">
-                      <RotateCw size={16} /> Auto Rotation
+                      <RotateCw size={16} /> Rotation Speed
                     </div>
-                    <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{rotationSpeed.toFixed(1)}</span>
+                    <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-12 text-center">
+                        {rotationSpeed.toFixed(1)}
+                    </span>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="5.0"
-                    step="0.1"
-                    value={rotationSpeed}
-                    onChange={(e) => setRotationSpeed(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
-                  />
+                  <div className="relative">
+                    <input
+                        type="range"
+                        min="-5.0"
+                        max="5.0"
+                        step="0.1"
+                        value={rotationSpeed}
+                        onChange={(e) => setRotationSpeed(parseFloat(e.target.value))}
+                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                    />
+                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
+                        <span>Left (-5.0)</span>
+                        <span>Stop (0)</span>
+                        <span>Right (5.0)</span>
+                    </div>
+                  </div>
                 </div>
 
                  {/* Environment Intensity */}
@@ -218,7 +242,7 @@ export function UploadedModel({ url, scale, rotationSpeed }) {
       <div className="w-full bg-slate-900 py-12 px-4 md:px-8 border-t border-slate-800">
         <div className="max-w-5xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-2">Implementation Details</h3>
-            <p className="text-slate-400 mb-8">ローカルファイルの読み込みと、コンポーネントへのProps伝達を組み合わせています。</p>
+            <p className="text-slate-400 mb-8">ユーザーがアップロードしたファイルをブラウザのメモリ上でURL化し、それを`useGLTF`フックに渡すことで動的にロードします。</p>
             <CodeBlock title="Sample3.tsx (Excerpt)" code={sampleCode} />
         </div>
       </div>

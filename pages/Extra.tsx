@@ -56,7 +56,7 @@ export default function Extra() {
                     <a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline font-medium inline-flex items-center gap-1 mx-1">
                         Google AI Studio <ExternalLink size={14} />
                     </a>
-                    を開き、右側のModel選択で <strong>Gemini 2.0 Flash</strong> (または gemini-2.5-flash) を選択してください。<br/>
+                    を開き、右側のModel選択で <strong>Nano Banana (proではない)</strong> を選択してください。<br/>
                     プロンプト入力欄に以下のテキストを入力して実行します。
                 </p>
 

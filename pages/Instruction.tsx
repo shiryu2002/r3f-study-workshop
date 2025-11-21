@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Box, Layers, Cuboid } from "lucide-react";
+import { ArrowRight, Box, Layers, Cuboid, ChevronDown } from "lucide-react";
 
-const SlideSection: React.FC<{ title: string; children: React.ReactNode; icon: React.ReactNode; className?: string }> = ({ title, children, icon, className }) => (
-  <div className={`min-h-[80vh] flex flex-col justify-center p-8 md:p-20 border-b border-gray-200 ${className}`}>
+const SlideSection: React.FC<{ title: string; children: React.ReactNode; icon: React.ReactNode; className?: string; showArrow?: boolean }> = ({ title, children, icon, className, showArrow }) => (
+  <div className={`min-h-[80vh] relative flex flex-col justify-center p-8 md:p-20 border-b border-gray-200 ${className}`}>
     <div className="max-w-4xl mx-auto w-full">
       <div className="flex items-center gap-4 mb-6">
         <div className="p-3 bg-blue-100 text-blue-600 rounded-xl">
@@ -15,6 +15,11 @@ const SlideSection: React.FC<{ title: string; children: React.ReactNode; icon: R
         {children}
       </div>
     </div>
+    {showArrow && (
+      <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
+        <ChevronDown className="text-slate-300" size={48} strokeWidth={1.5} />
+      </div>
+    )}
   </div>
 );
 
@@ -22,7 +27,7 @@ export default function Instruction() {
   return (
     <div className="bg-white">
       {/* Intro Slide */}
-      <SlideSection title="Three.js とは？" icon={<Cuboid size={32} />}>
+      <SlideSection title="Three.js とは？" icon={<Cuboid size={32} />} showArrow>
         <p>
           <strong>Three.js</strong> は、ウェブブラウザ上で3Dグラフィックスを描画するためのJavaScriptライブラリです。<br/>
           WebGLという低レベルなAPIを、扱いやすいオブジェクト指向のAPIでラップしています。
@@ -36,7 +41,7 @@ export default function Instruction() {
       </SlideSection>
 
       {/* R3F Slide */}
-      <SlideSection title="React Three Fiber (R3F) とは？" icon={<Layers size={32} />}>
+      <SlideSection title="React Three Fiber (R3F) とは？" icon={<Layers size={32} />} showArrow>
         <p>
           <strong>React Three Fiber</strong> は、Three.jsのためのReactレンダラーです。<br/>
           Reactのコンポーネントベースの記述方法で、Three.jsのシーンを宣言的に構築できます。

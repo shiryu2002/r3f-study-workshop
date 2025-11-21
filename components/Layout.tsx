@@ -10,8 +10,8 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     { path: "/instruction", label: "Docs", icon: <BookOpen size={18} /> },
     { path: "/sample1", label: "1. Basic", icon: <Box size={18} /> },
     { path: "/sample2", label: "2. Interactive", icon: <Layers size={18} /> },
-    { path: "/extra", label: "Bonus: AI", icon: <Sparkles size={18} /> },
-    { path: "/sample3", label: "3. Upload", icon: <Upload size={18} /> },
+    { path: "/extra", label: "3: AI", icon: <Sparkles size={18} /> },
+    { path: "/sample3", label: "4. Upload", icon: <Upload size={18} /> },
   ];
 
   return (

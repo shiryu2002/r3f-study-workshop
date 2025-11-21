@@ -17,20 +17,38 @@ export default function Sample1() {
   const [viewMode, setViewMode] = useState<'image' | '3d'>('image');
 
   const sampleCode = `
-// 1. Canvas: 3Dを描画する領域
-// 2. Suspense: モデル読み込み中のローディング表示
-// 3. OrbitControls: カメラ操作（回転・ズーム）
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Environment } from "@react-three/drei";
+import { Suspense } from "react";
 
-<Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
-  <ambientLight intensity={0.7} />
-  
-  <Suspense fallback={<Loader />}>
-    <Model url="/sample.glb" />
-    <Environment preset="city" />
-  </Suspense>
-  
-  <OrbitControls enablePan={false} />
-</Canvas>
+export default function Scene() {
+  return (
+    // Canvas: 3Dシーンを描画するルートコンポーネント
+    // camera: 初期のカメラ位置(x, y, z)と画角(fov)を設定
+    <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+      
+      {/* ライティング設定: 全体光とスポットライト */}
+      <ambientLight intensity={0.5} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+      
+      {/* Suspense: 3Dモデルなどの非同期読み込み中の待機状態(ローディング)を処理 */}
+      {/* fallbackに指定したコンポーネントが読み込み中に表示されます */}
+      <Suspense fallback={<Loader />}>
+        
+        {/* Model: GLTFファイルを読み込んで表示するコンポーネント */}
+        <Model url="/sample.glb" />
+        
+        {/* Environment: リアルな環境マップ(背景・反射)を簡単に適用 */}
+        {/* preset="city" は都会的な照明環境を提供します */}
+        <Environment preset="city" />
+        
+      </Suspense>
+      
+      {/* OrbitControls: マウスドラッグによるカメラ操作(回転・ズーム)を有効化 */}
+      <OrbitControls enablePan={false} />
+    </Canvas>
+  );
+}
 `;
 
   return (
@@ -166,7 +184,7 @@ export default function Sample1() {
       <div className="w-full bg-slate-900 py-12 px-4 md:px-8 border-t border-slate-800">
         <div className="max-w-5xl mx-auto">
           <h3 className="text-2xl font-bold text-white mb-2">Implementation Key Points</h3>
-          <p className="text-slate-400 mb-8">基本的なCanvasのセットアップと、Suspenseを使ったローディング制御がポイントです。</p>
+          <p className="text-slate-400 mb-8">基本的なCanvasのセットアップと、Suspenseを使ったローディング制御、そしてDreiライブラリによる環境構築がポイントです。</p>
           <CodeBlock title="Sample1.tsx (Excerpt)" code={sampleCode} />
         </div>
       </div>

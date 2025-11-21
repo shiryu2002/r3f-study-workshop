@@ -25,7 +25,8 @@ export function Model({ scale = 1, color = "orange", rotationSpeed = 0 }: ModelP
   const meshRef = useRef<Mesh>(null);
 
   useFrame((state, delta) => {
-    if (meshRef.current && rotationSpeed > 0) {
+    // rotationSpeedがマイナスでも動作するように条件を変更（0の場合は加算しても変化しないためそのまま実行）
+    if (meshRef.current) {
       meshRef.current.rotation.y += delta * rotationSpeed;
     }
   });
@@ -65,7 +66,8 @@ export function UploadedModel({ url, scale = 1, rotationSpeed = 0 }: ModelProps)
   }, [scene]);
 
   useFrame((state, delta) => {
-    if (ref.current && rotationSpeed > 0) {
+    // rotationSpeedがマイナスでも動作するように条件を変更
+    if (ref.current) {
       ref.current.rotation.y += delta * rotationSpeed;
     }
   });

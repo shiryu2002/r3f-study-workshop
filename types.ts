@@ -1,5 +1,3 @@
-import { ThreeElements } from '@react-three/fiber';
-
 export interface Product {
   id: number;
   name: string;
@@ -13,10 +11,4 @@ export interface ModelProps {
   scale?: number;
   color?: string;
   rotationSpeed?: number;
-}
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements extends ThreeElements {}
-  }
 }
