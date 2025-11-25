@@ -2,7 +2,7 @@ import React, { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
-import { ArrowLeft, ArrowRight, Settings2, RotateCw, ZoomIn, Palette, Sun } from "lucide-react";
+import { ArrowLeft, ArrowRight, Settings2, RotateCw, ZoomIn, Palette, Sun, Image as ImageIcon } from "lucide-react";
 import { Loader, Model } from "../components/SceneComponents";
 import { CodeBlock } from "../components/CodeBlock";
 
@@ -11,6 +11,7 @@ export default function Sample2() {
   const [rotationSpeed, setRotationSpeed] = useState(0.5);
   const [color, setColor] = useState("#4f46e5"); // Indigo-600
   const [envIntensity, setEnvIntensity] = useState(1);
+  const [envPreset, setEnvPreset] = useState("city");
 
   const colorOptions = [
     { name: "Indigo", value: "#4f46e5" },
@@ -20,12 +21,25 @@ export default function Sample2() {
     { name: "Slate", value: "#475569" },
   ];
 
+  const envPresets = [
+    "apartment",
+    "city",
+    "dawn",
+    "forest",
+    "lobby",
+    "night",
+    "park",
+    "studio",
+    "sunset",
+    "warehouse"
+  ];
+
   const sampleCode = `
 // 【Sample2.tsx】 (Interactivity)
 
 // ReactのStateで3Dモデルのプロパティを管理
 const [color, setColor] = useState("#4f46e5");
-const [scale, setScale] = useState(1.2);
+const [envPreset, setEnvPreset] = useState("city");
 
 // Canvasコンポーネント
 <Canvas>
@@ -40,7 +54,8 @@ const [scale, setScale] = useState(1.2);
       color={color} 
       rotationSpeed={rotationSpeed}
     />
-    <Environment preset="city" environmentIntensity={envIntensity} />
+    {/* 環境マップのプリセットと強度を動的に変更 */}
+    <Environment preset={envPreset} environmentIntensity={envIntensity} />
   </Suspense>
   
   <OrbitControls />
@@ -92,7 +107,7 @@ const [scale, setScale] = useState(1.2);
                   color={color} 
                   rotationSpeed={rotationSpeed} 
                 />
-                <Environment preset="city" environmentIntensity={envIntensity} />
+                <Environment preset={envPreset as any} environmentIntensity={envIntensity} />
                 <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2.5} far={4} color={color} />
               </Suspense>
               
@@ -189,10 +204,29 @@ const [scale, setScale] = useState(1.2);
                     <Sun size={18} /> Lighting
                   </h5>
 
+                  {/* Environment Preset Selector */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-slate-700 font-medium text-sm">
+                      <ImageIcon size={16} />
+                      Preset
+                    </div>
+                    <select
+                      value={envPreset}
+                      onChange={(e) => setEnvPreset(e.target.value)}
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium appearance-none cursor-pointer"
+                    >
+                      {envPresets.map((preset) => (
+                        <option key={preset} value={preset}>
+                          {preset.charAt(0).toUpperCase() + preset.slice(1)}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   {/* Environment Intensity */}
                   <div className="space-y-3">
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-slate-600 pl-6">Environment</span>
+                      <span className="text-slate-600 pl-6">Intensity</span>
                       <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{envIntensity.toFixed(1)}</span>
                     </div>
                     <input

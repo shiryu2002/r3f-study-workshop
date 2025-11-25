@@ -7,6 +7,8 @@ import Sample1 from './pages/Sample1';
 import Sample2 from './pages/Sample2';
 import Extra from './pages/Extra';
 import Sample3 from './pages/Sample3';
+import Fin from './pages/Fin';
+import Docs from './pages/Docs';
 import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/sample2" element={<Sample2 />} />
           <Route path="/extra" element={<Extra />} />
           <Route path="/sample3" element={<Sample3 />} />
+          <Route path="/fin" element={<Fin />} />
+          <Route path="/docs" element={<Docs />} />
         </Routes>
       </Layout>
     </Router>

@@ -2,7 +2,7 @@ import React, { Suspense, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows, Center } from "@react-three/drei";
-import { ArrowLeft, UploadCloud, FileBox, CheckCircle2, AlertCircle, Box, Settings2, ZoomIn, RotateCw } from "lucide-react";
+import { ArrowLeft, UploadCloud, FileBox, CheckCircle2, AlertCircle, Box, Settings2, ZoomIn, RotateCw, Image as ImageIcon } from "lucide-react";
 import { Loader, UploadedModel } from "../components/SceneComponents";
 import { CodeBlock } from "../components/CodeBlock";
 
@@ -15,6 +15,20 @@ export default function Sample3() {
   const [scale, setScale] = useState(1.0);
   const [rotationSpeed, setRotationSpeed] = useState(0.5);
   const [envIntensity, setEnvIntensity] = useState(1.0);
+  const [envPreset, setEnvPreset] = useState("city");
+
+  const envPresets = [
+    "apartment",
+    "city",
+    "dawn",
+    "forest",
+    "lobby",
+    "night",
+    "park",
+    "studio",
+    "sunset",
+    "warehouse"
+  ];
 
   // File Input Handler
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +118,7 @@ const handleFileChange = (e) => {
                               rotationSpeed={rotationSpeed} 
                             />
                         </Center>
-                        <Environment preset="city" environmentIntensity={envIntensity} />
+                        <Environment preset={envPreset as any} environmentIntensity={envIntensity} />
                         <ContactShadows position={[0, -1, 0]} opacity={0.6} scale={10} blur={2.5} far={4} color="black" />
                     </Suspense>
                     
@@ -113,7 +127,7 @@ const handleFileChange = (e) => {
             )}
             
             <div className="absolute bottom-4 right-6 text-xs text-slate-500 pointer-events-none">
-              Viewer Environment: Studio Lighting • Auto-Centered
+              Viewer Environment: {envPreset.charAt(0).toUpperCase() + envPreset.slice(1)} • Auto-Centered
             </div>
           </div>
 
@@ -203,23 +217,47 @@ const handleFileChange = (e) => {
                   </div>
                 </div>
 
-                 {/* Environment Intensity */}
-                 <div className="space-y-3">
-                  <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2 text-slate-700 font-medium">
-                      <span className="text-lg leading-none">☀</span> Lighting
+                 {/* Environment Settings */}
+                 <div className="pt-4 border-t border-gray-100 space-y-4">
+                  <h5 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
+                    <span className="text-lg leading-none">☀</span> Lighting
+                  </h5>
+
+                  {/* Preset Selector */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-slate-700 font-medium text-sm">
+                      <ImageIcon size={16} />
+                      Env Preset
                     </div>
-                    <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{envIntensity.toFixed(1)}</span>
+                    <select
+                      value={envPreset}
+                      onChange={(e) => setEnvPreset(e.target.value)}
+                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium appearance-none cursor-pointer"
+                    >
+                      {envPresets.map((preset) => (
+                        <option key={preset} value={preset}>
+                          {preset.charAt(0).toUpperCase() + preset.slice(1)}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="3.0"
-                    step="0.1"
-                    value={envIntensity}
-                    onChange={(e) => setEnvIntensity(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
-                  />
+
+                  {/* Intensity Slider */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-600 pl-6">Intensity</span>
+                      <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{envIntensity.toFixed(1)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="3.0"
+                      step="0.1"
+                      value={envIntensity}
+                      onChange={(e) => setEnvIntensity(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                    />
+                  </div>
                 </div>
               </div>
             </div>

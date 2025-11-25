@@ -1,17 +1,19 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Layers, Box, GraduationCap, BookOpen, Upload, Sparkles } from "lucide-react";
+import { Layers, Box, GraduationCap, BookOpen, Upload, Sparkles, Flag, Library } from "lucide-react";
 
 export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const location = useLocation();
 
   const navItems = [
     { path: "/", label: "Home", icon: <GraduationCap size={18} /> },
-    { path: "/instruction", label: "Docs", icon: <BookOpen size={18} /> },
+    { path: "/instruction", label: "Learn", icon: <BookOpen size={18} /> },
     { path: "/sample1", label: "1. Basic", icon: <Box size={18} /> },
     { path: "/sample2", label: "2. Interactive", icon: <Layers size={18} /> },
-    { path: "/extra", label: "3: AI", icon: <Sparkles size={18} /> },
-    { path: "/sample3", label: "4. Upload", icon: <Upload size={18} /> },
+    { path: "/extra", label: "Bonus: AI", icon: <Sparkles size={18} /> },
+    { path: "/sample3", label: "3. Upload", icon: <Upload size={18} /> },
+    { path: "/fin", label: "Fin", icon: <Flag size={18} /> },
+    { path: "/docs", label: "Refs", icon: <Library size={18} /> },
   ];
 
   return (
