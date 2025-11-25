@@ -2,7 +2,7 @@ import React, { Suspense, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows, Center } from "@react-three/drei";
-import { ArrowLeft, UploadCloud, FileBox, CheckCircle2, AlertCircle, Box, Settings2, ZoomIn, RotateCw, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, UploadCloud, FileBox, CheckCircle2, AlertCircle, Box, Settings2, ZoomIn, RotateCw, Image as ImageIcon, ArrowRight } from "lucide-react";
 import { Loader, UploadedModel } from "../components/SceneComponents";
 import { CodeBlock } from "../components/CodeBlock";
 
@@ -91,7 +91,9 @@ const handleFileChange = (e) => {
            <Link to="/extra" className="text-slate-500 hover:text-slate-900 flex items-center gap-1 text-sm font-medium">
              <ArrowLeft size={16} /> Back to Bonus: AI
            </Link>
-           <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase">Step 3: Bring Your Own Model</h2>
+             <Link to="/sample3" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
+              Next:  Fin <ArrowRight size={16} />
+             </Link>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
