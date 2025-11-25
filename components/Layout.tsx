@@ -58,7 +58,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 py-8 mt-auto">
         <div className="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-          React Three Fiber Study Session • 30 Minutes Course
+          モダンフロントエンド勉強会 2025/11/25 東島
         </div>
       </footer>
     </div>

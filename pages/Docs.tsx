@@ -14,7 +14,8 @@ export default function Docs() {
 
       <h1 className="text-3xl font-bold text-slate-900 mb-2">Official References</h1>
       <p className="text-slate-600 mb-12">
-        さらに深く学びたい方のための、公式ドキュメントリンク集です。
+        さらに深く学びたい方のための、公式ドキュメントリンク集です。<br />
+        様々なサンプルページがあるのでお気軽に覗いてみてください！
       </p>
 
       <div className="grid md:grid-cols-2 gap-8">
