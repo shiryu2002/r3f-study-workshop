@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Html, useProgress, Float, useGLTF } from "@react-three/drei";
+import { Html, useProgress, Float, useGLTF, MeshDistortMaterial } from "@react-three/drei";
 import { Mesh, Box3, Vector3 } from "three";
 import { ModelProps } from "../types";
 
@@ -10,8 +10,8 @@ export function Loader() {
   return (
     <Html center>
       <div className="flex flex-col items-center gap-2">
-        <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin"></div>
-        <div className="text-xs font-bold text-slate-600 bg-white/80 px-2 py-1 rounded backdrop-blur-sm">
+        <div className="w-12 h-12 border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+        <div className="text-xs font-bold text-blue-300 bg-slate-900/80 px-2 py-1 rounded backdrop-blur-sm border border-blue-500/30">
           {Math.floor(progress)}%
         </div>
       </div>
@@ -21,7 +21,7 @@ export function Loader() {
 
 // デモ用モデル（Sample1, 2で使用）
 // ファイルをロードせず、Three.jsのGeometryを生成して表示します
-export function Model({ scale = 1, color = "orange", rotationSpeed = 0 }: ModelProps) {
+export function Model({ scale = 1, color = "orange", rotationSpeed = 0, enableDistort = false }: ModelProps) {
   const meshRef = useRef<Mesh>(null);
 
   useFrame((state, delta) => {
@@ -35,11 +35,21 @@ export function Model({ scale = 1, color = "orange", rotationSpeed = 0 }: ModelP
     <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
       <mesh ref={meshRef} scale={scale}>
         <torusKnotGeometry args={[0.6, 0.2, 128, 32]} />
-        <meshStandardMaterial 
-          color={color} 
-          roughness={0.3} 
-          metalness={0.8} 
-        />
+        {enableDistort ? (
+          <MeshDistortMaterial
+            color={color}
+            roughness={0.2}
+            metalness={0.8}
+            distort={0.4} // 歪みの強さ
+            speed={2} // 歪みのアニメーション速度
+          />
+        ) : (
+          <meshStandardMaterial 
+            color={color} 
+            roughness={0.3} 
+            metalness={0.8} 
+          />
+        )}
       </mesh>
     </Float>
   );

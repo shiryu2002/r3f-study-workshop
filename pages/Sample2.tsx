@@ -105,7 +105,8 @@ const [envPreset, setEnvPreset] = useState("city");
                   url="/sample.glb" 
                   scale={scale} 
                   color={color} 
-                  rotationSpeed={rotationSpeed} 
+                  rotationSpeed={rotationSpeed}
+                  enableDistort={true}
                 />
                 <Environment preset={envPreset as any} environmentIntensity={envIntensity} />
                 <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2.5} far={4} color={color} />
@@ -122,17 +123,17 @@ const [envPreset, setEnvPreset] = useState("city");
           {/* Controls Sidebar (Right) */}
           <div className="lg:col-span-4 space-y-6">
             
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-full overflow-y-auto max-h-[600px]">
-              <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-100">
-                <Settings2 className="text-slate-900" size={20} />
-                <h4 className="font-bold text-lg text-slate-900">Configurator</h4>
+            <div className="bg-slate-900/40 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-slate-800 h-full overflow-y-auto max-h-[600px]">
+              <div className="flex items-center gap-2 mb-6 pb-4 border-b border-slate-800">
+                <Settings2 className="text-blue-400" size={20} />
+                <h4 className="font-bold text-lg text-slate-100">Configurator</h4>
               </div>
 
               <div className="space-y-8">
                 
                 {/* Color Picker */}
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-slate-700 font-medium text-sm">
+                  <div className="flex items-center gap-2 text-slate-100 font-medium text-sm">
                     <Palette size={16} />
                     Material Color
                   </div>
@@ -142,7 +143,7 @@ const [envPreset, setEnvPreset] = useState("city");
                         key={opt.name}
                         onClick={() => setColor(opt.value)}
                         className={`w-10 h-10 rounded-full shadow-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 ${
-                          color === opt.value ? "ring-2 ring-offset-2 ring-slate-900 scale-110" : ""
+                          color === opt.value ? "ring-2 ring-offset-2 ring-blue-500 scale-110" : ""
                         }`}
                         style={{ backgroundColor: opt.value }}
                         title={opt.name}
@@ -154,10 +155,10 @@ const [envPreset, setEnvPreset] = useState("city");
                 {/* Scale Slider */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2 text-slate-700 font-medium">
+                    <div className="flex items-center gap-2 text-slate-100 font-medium">
                       <ZoomIn size={16} /> Scale
                     </div>
-                    <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{scale.toFixed(1)}x</span>
+                    <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">{scale.toFixed(1)}x</span>
                   </div>
                   <input
                     type="range"
@@ -166,17 +167,17 @@ const [envPreset, setEnvPreset] = useState("city");
                     step="0.1"
                     value={scale}
                     onChange={(e) => setScale(parseFloat(e.target.value))}
-                    className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                    className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
                 </div>
 
                 {/* Rotation Speed Slider */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2 text-slate-700 font-medium">
+                    <div className="flex items-center gap-2 text-slate-100 font-medium">
                       <RotateCw size={16} /> Rotation Speed
                     </div>
-                    <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded w-12 text-center">
+                    <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded w-12 text-center">
                         {rotationSpeed.toFixed(1)}
                     </span>
                   </div>
@@ -188,9 +189,9 @@ const [envPreset, setEnvPreset] = useState("city");
                         step="0.1"
                         value={rotationSpeed}
                         onChange={(e) => setRotationSpeed(parseFloat(e.target.value))}
-                        className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                        className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
                     />
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
+                    <div className="flex justify-between text-[12px] text-slate-100 mt-1 px-1">
                         <span>Left (-5.0)</span>
                         <span>Stop (0)</span>
                         <span>Right (5.0)</span>
@@ -199,21 +200,21 @@ const [envPreset, setEnvPreset] = useState("city");
                 </div>
 
                  {/* Lighting Controls Group */}
-                 <div className="space-y-4 pt-4 border-t border-gray-100">
-                  <h5 className="font-bold text-slate-900 flex items-center gap-2 text-sm">
+                 <div className="space-y-4 pt-4 border-t border-slate-800">
+                  <h5 className="font-bold text-slate-100 flex items-center gap-2 text-sm">
                     <Sun size={18} /> Lighting
                   </h5>
 
                   {/* Environment Preset Selector */}
                   <div className="space-y-3">
-                    <div className="flex items-center gap-2 text-slate-700 font-medium text-sm">
+                    <div className="flex items-center gap-2 text-slate-100 font-medium text-sm">
                       <ImageIcon size={16} />
                       Preset
                     </div>
                     <select
                       value={envPreset}
                       onChange={(e) => setEnvPreset(e.target.value)}
-                      className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-900 font-medium appearance-none cursor-pointer"
+                      className="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium appearance-none cursor-pointer"
                     >
                       {envPresets.map((preset) => (
                         <option key={preset} value={preset}>
@@ -226,8 +227,8 @@ const [envPreset, setEnvPreset] = useState("city");
                   {/* Environment Intensity */}
                   <div className="space-y-3">
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-slate-600 pl-6">Intensity</span>
-                      <span className="font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">{envIntensity.toFixed(1)}</span>
+                      <span className="text-slate-400 pl-6">Intensity</span>
+                      <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">{envIntensity.toFixed(1)}</span>
                     </div>
                     <input
                       type="range"
@@ -236,7 +237,7 @@ const [envPreset, setEnvPreset] = useState("city");
                       step="0.1"
                       value={envIntensity}
                       onChange={(e) => setEnvIntensity(parseFloat(e.target.value))}
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-slate-900"
+                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
                     />
                   </div>
                 </div>

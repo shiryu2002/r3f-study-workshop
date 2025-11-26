@@ -11,4 +11,5 @@ export interface ModelProps {
   scale?: number;
   color?: string;
   rotationSpeed?: number;
+  enableDistort?: boolean;
 }

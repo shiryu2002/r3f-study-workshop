@@ -101,7 +101,7 @@ export default function Extra() {
 
             {/* Step 3 */}
             <section className="bg-gradient-to-r from-blue-600 to-indigo-600 p-8 rounded-3xl shadow-lg text-white text-center">
-                <h2 className="text-2xl font-bold mb-4">Ready to display?</h2>
+                <h2 className="text-2xl font-bold mb-4">モデルは準備できましたか?</h2>
                 <p className="mb-8 text-blue-100">
                     ダウンロードしたGLBファイルを使って、Webブラウザ上で表示してみましょう。
                 </p>
@@ -109,7 +109,7 @@ export default function Extra() {
                     to="/sample3" 
                     className="inline-flex items-center gap-2 bg-white text-blue-600 px-8 py-4 rounded-full font-bold hover:bg-blue-50 transition-all shadow-xl"
                 >
-                    Go to Sample 3 <ArrowRight />
+                    Go to Display <ArrowRight />
                 </Link>
             </section>
         </div>
