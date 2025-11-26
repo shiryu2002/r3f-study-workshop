@@ -8,9 +8,9 @@ import { CodeBlock } from "../components/CodeBlock";
 
 export default function Sample1() {
   const thumbs = [
-    "/image/sample1.jpg",
-    "/image/sample2.jpg",
-    "/image/sample3.jpg",
+    "https://picsum.photos/id/30/400/400",
+    "https://picsum.photos/id/40/400/400",
+    "https://picsum.photos/id/50/400/400",
   ];
 
   const [mainImage, setMainImage] = useState(thumbs[0]);
