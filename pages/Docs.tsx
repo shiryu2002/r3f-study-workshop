@@ -1,6 +1,5 @@
-import React from "react";
+import { ArrowLeft, Book, ExternalLink, Github, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ExternalLink, Book, Layers } from "lucide-react";
 
 export default function Docs() {
   return (
@@ -63,6 +62,27 @@ export default function Docs() {
           </p>
         </a>
       </div>
+      {/* リポジトリ */}
+      <h1 className="text-3xl font-bold text-slate-100 my-8">Github Repository</h1>
+      <a 
+        href="https://github.com/shiryu2002/r3f-study-workshop"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-12 sgroup block p-8 bg-slate-900/40 backdrop-blur-sm rounded-2xl border border-slate-800 shadow-lg hover:shadow-purple-500/10 hover:border-purple-500/50 transition-all hover:-translate-y-1"
+      >
+          <div className="flex items-start justify-between mb-4">
+            <div className="p-3 bg-purple-900/30 text-purple-400 rounded-xl border border-purple-500/20">
+              <Github size={32} />
+            </div>
+            <ExternalLink className="text-slate-500 group-hover:text-purple-400 transition-colors" size={20} />
+          </div>
+          <h2 className="text-xl font-bold text-slate-100 mb-2 group-hover:text-purple-400 transition-colors">
+            Repository
+          </h2>
+          <p className="text-slate-400 text-sm leading-relaxed">
+            このWEBサイトのリポジトリです。<br />
+          </p>
+      </a>
     </div>
   );
 }

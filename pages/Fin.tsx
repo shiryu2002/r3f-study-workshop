@@ -1,11 +1,27 @@
-import React from "react";
+import { ArrowLeft, ArrowRight, PartyPopper, Rocket } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowLeft, PartyPopper, Rocket } from "lucide-react";
+import { CodeBlock } from "../components/CodeBlock";
 
 export default function Fin() {
+  const sampleCode =`
+<div className="fixed inset-0 -z-10 bg-slate-950">
+  {/* React Three Fiber */}
+  <Canvas camera={{ position: [0, 0, 1] }}>
+    <AnimatedStars />
+    <Sparkles count={100} scale={12} size={4}
+     speed={0.4} opacity={0.5} color="#4f46e5"/> //青い星
+    <Sparkles count={50} scale={10} size={6} 
+    speed={0.2} opacity={0.3} color="#06b6d4"/> //白めの星
+    <fog attach="fog" args={['#020617', 5, 20]} />
+  </Canvas>
+  {/* グラデーションオーバーレイ */}
+  <div className="absolute inset-0 
+  bg-gradient-to-b from-transparent via-slate-950/50 to-slate-950
+  pointer-events-none" />
+</div>`;
   return (
-    <div className="w-full min-h-[80vh] flex items-center justify-center px-4">
-      <div className="max-w-2xl mx-auto text-center space-y-8">
+    <div className="w-full mt-10 min-h-[80vh] flex items-center justify-center px-4">
+      <div className="max-w-4xl mx-auto text-center space-y-8">
         
         <div className="inline-flex items-center justify-center w-24 h-24 bg-yellow-500/20 text-yellow-400 rounded-full mb-4 animate-bounce shadow-[0_0_30px_rgba(234,179,8,0.3)]">
           <PartyPopper size={48} />
@@ -21,9 +37,9 @@ export default function Fin() {
             これでReact Three Fiberの基礎はマスターです。
           </p>
           <p className="text-slate-400 leading-relaxed">
-            今回紹介したのはほんの一部なので、<br/>
-            いろんなパラメータをいじって遊んでみてください！<br/>
-            3D表現の世界は無限大です。
+            今回紹介したのはほんの一部に過ぎません。<br/>
+            公式ドキュメントもぜひご覧ください。 <br/>
+            さらに高度なテクニックやコンポーネントが多数揃っています！ <br/>
           </p>
         </div>
 
@@ -48,8 +64,16 @@ export default function Fin() {
             <Rocket size={24} />
             <span className="text-sm">Happy Hacking with R3F!</span>
         </div>
-
+            {/* Code Section (Bottom) */}
+            <div className="w-full py-12 px-4 md:px-8">
+              <div className="max-w-5xl mx-auto">
+                <h3 className="text-2xl font-bold text-white mb-2">おまけ</h3>
+                <p className="text-slate-400 mb-8">この背景は以下のコードのみで実装できます！</p>
+                <CodeBlock title="BackgroundScene.tsx" code={sampleCode} />
+              </div>
+            </div>
       </div>
+
     </div>
   );
 }

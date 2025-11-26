@@ -110,7 +110,7 @@ const [speed, setSpeed] = useState(2);
                 <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2.5} far={4} color={color} />
               </Suspense>
               
-              <OrbitControls enablePan={false} minPolarAngle={0} maxPolarAngle={Math.PI / 1.5} />
+              <OrbitControls enablePan={true} minPolarAngle={0} maxPolarAngle={Math.PI / 1.5} />
             </Canvas>
 
             <div className="absolute bottom-4 right-6 text-xs text-slate-400 pointer-events-none">

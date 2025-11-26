@@ -8,9 +8,9 @@ import { CodeBlock } from "../components/CodeBlock";
 
 export default function Sample1() {
   const thumbs = [
-    "https://picsum.photos/id/30/400/400",
-    "https://picsum.photos/id/40/400/400",
-    "https://picsum.photos/id/50/400/400",
+    "/image/sample1.jpg",
+    "/image/sample2.jpg",
+    "/image/sample3.jpg",
   ];
 
   const [mainImage, setMainImage] = useState(thumbs[0]);
@@ -56,12 +56,12 @@ export default function Scene() {
       <div className="max-w-6xl mx-auto px-4 md:px-8 pb-12">
         {/* Navigation Helper */}
         <div className="flex justify-between items-center mb-8">
-           <Link to="/instruction" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-md font-medium">
+           <Link to="/instruction" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-sm font-medium">
              <ArrowLeft size={16} /> Back to Docs
            </Link>
            <div className="flex items-center gap-4">
              <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase hidden sm:block">Step 1: Basic Viewer</h2>
-             <Link to="/sample2" className="text-blue-600 hover:underline flex items-center gap-1 text-md font-medium">
+             <Link to="/sample2" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
                Next: Interactive Controls <ArrowRight size={16} />
              </Link>
            </div>
