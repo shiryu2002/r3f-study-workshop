@@ -14,17 +14,17 @@ export default function Extra() {
   };
 
   return (
-    <div className="w-full py-12 px-4 md:px-8 bg-slate-50">
+    <div className="w-full py-12 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
         
         {/* Navigation */}
         <div className="flex justify-between items-center mb-12">
-           <Link to="/sample2" className="text-slate-500 hover:text-slate-900 flex items-center gap-1 text-sm font-medium">
+           <Link to="/sample2" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-md font-medium">
              <ArrowLeft size={16} /> Back to Sample 2
            </Link>
            <div className="flex items-center gap-4">
              <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase hidden sm:block">Bonus Stage</h2>
-             <Link to="/sample3" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
+             <Link to="/sample3" className="text-blue-600 hover:underline flex items-center gap-1 text-md font-medium">
                Next: Display Your Model <ArrowRight size={16} />
              </Link>
            </div>
@@ -34,10 +34,10 @@ export default function Extra() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl mb-2">
                 <Sparkles size={32} />
             </div>
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-100">
                 Generative AI 3D Workflow
             </h1>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-200 max-w-3xl mx-auto">
                 手元に3Dモデルがない場合でも、生成AIを使えば数分でオリジナルのモデルを作成できます。<br/>
                 Googleの画像生成モデルと、最新の3D生成AIを組み合わせてみましょう。
             </p>

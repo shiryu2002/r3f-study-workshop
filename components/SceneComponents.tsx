@@ -21,7 +21,7 @@ export function Loader() {
 
 // デモ用モデル（Sample1, 2で使用）
 // ファイルをロードせず、Three.jsのGeometryを生成して表示します
-export function Model({ scale = 1, color = "orange", rotationSpeed = 0, enableDistort = false }: ModelProps) {
+export function Model({ scale = 1, color = "orange", rotationSpeed = 0, enableDistort = false, distort = 0.4, speed = 2 }: ModelProps) {
   const meshRef = useRef<Mesh>(null);
 
   useFrame((state, delta) => {
@@ -40,8 +40,8 @@ export function Model({ scale = 1, color = "orange", rotationSpeed = 0, enableDi
             color={color}
             roughness={0.2}
             metalness={0.8}
-            distort={0.4} // 歪みの強さ
-            speed={2} // 歪みのアニメーション速度
+            distort={distort} // 歪みの強さ
+            speed={speed} // 歪みのアニメーション速度
           />
         ) : (
           <meshStandardMaterial 

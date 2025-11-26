@@ -83,15 +83,15 @@ const handleFileChange = (e) => {
 `;
 
   return (
-    <div className="w-full pt-12 bg-gray-50">
+    <div className="w-full pt-12">
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
         
         {/* Navigation */}
         <div className="flex justify-between items-center mb-8">
-           <Link to="/extra" className="text-slate-500 hover:text-slate-900 flex items-center gap-1 text-sm font-medium">
+           <Link to="/extra" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-md font-medium">
              <ArrowLeft size={16} /> Back to Bonus: AI
            </Link>
-             <Link to="/sample3" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
+             <Link to="/sample3" className="text-blue-600 hover:underline flex items-center gap-1 text-md font-medium">
               Next:  Fin <ArrowRight size={16} />
              </Link>
         </div>

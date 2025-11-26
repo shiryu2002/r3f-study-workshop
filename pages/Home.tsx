@@ -12,7 +12,7 @@ export default function Home() {
         <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight drop-shadow-lg">
           React Three Fiber <br/>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400">
-            Crash Course
+            Basic Workshop
           </span>
         </h1>
         <p className="text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">

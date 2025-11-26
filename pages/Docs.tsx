@@ -7,7 +7,7 @@ export default function Docs() {
     <div className="max-w-4xl mx-auto px-4 py-12">
       {/* Navigation */}
       <div className="mb-12">
-           <Link to="/fin" className="text-slate-400 hover:text-white flex items-center gap-1 text-sm font-medium transition-colors">
+           <Link to="/fin" className="text-slate-400 hover:text-white flex items-center gap-1 text-md font-medium transition-colors">
              <ArrowLeft size={16} /> Back to Finish
            </Link>
       </div>

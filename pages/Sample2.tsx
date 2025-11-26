@@ -2,7 +2,7 @@ import React, { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Environment, ContactShadows } from "@react-three/drei";
-import { ArrowLeft, ArrowRight, Settings2, RotateCw, ZoomIn, Palette, Sun, Image as ImageIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Settings2, RotateCw, ZoomIn, Palette, Sun, Image as ImageIcon, Waves, Zap } from "lucide-react";
 import { Loader, Model } from "../components/SceneComponents";
 import { CodeBlock } from "../components/CodeBlock";
 
@@ -12,6 +12,8 @@ export default function Sample2() {
   const [color, setColor] = useState("#4f46e5"); // Indigo-600
   const [envIntensity, setEnvIntensity] = useState(1);
   const [envPreset, setEnvPreset] = useState("city");
+  const [distort, setDistort] = useState(0.4);
+  const [speed, setSpeed] = useState(2);
 
   const colorOptions = [
     { name: "Indigo", value: "#4f46e5" },
@@ -36,59 +38,53 @@ export default function Sample2() {
 
   const sampleCode = `
 // 【Sample2.tsx】 (Interactivity)
+import { MeshDistortMaterial } from "@react-three/drei";
 
 // ReactのStateで3Dモデルのプロパティを管理
 const [color, setColor] = useState("#4f46e5");
-const [envPreset, setEnvPreset] = useState("city");
+const [distort, setDistort] = useState(0.4);
+const [speed, setSpeed] = useState(2);
 
 // Canvasコンポーネント
 <Canvas>
-  <ambientLight intensity={0.5} />
-  <spotLight position={[10, 10, 10]} angle={0.15} castShadow />
-  
   <Suspense fallback={<Loader />}>
-    {/* PropsとしてStateを渡すことで、UI操作が即座に反映されます */}
-    <Model 
-      url="/sample.glb" 
-      scale={scale} 
-      color={color} 
-      rotationSpeed={rotationSpeed}
-    />
-    {/* 環境マップのプリセットと強度を動的に変更 */}
-    <Environment preset={envPreset} environmentIntensity={envIntensity} />
+    <mesh>
+      <torusKnotGeometry args={[0.6, 0.2, 128, 32]} />
+      
+      {/* MeshDistortMaterial: 頂点を歪ませる特殊なマテリアル */}
+      <MeshDistortMaterial
+        color={color}
+        distort={distort} // 歪みの強さ (0-1)
+        speed={speed}     // アニメーション速度
+        roughness={0.2}
+      />
+    </mesh>
+    
+    <Environment preset="city" />
   </Suspense>
-  
-  <OrbitControls />
 </Canvas>
 `;
 
   return (
-    <div className="w-full pt-12 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-12">
-        
+    <div className="min-h-screen pt-20 pb-12 px-4 md:px-8">
+      <div className="max-w-7xl mx-auto">
         {/* Navigation */}
         <div className="flex justify-between items-center mb-8">
-           <Link to="/sample1" className="text-slate-500 hover:text-slate-900 flex items-center gap-1 text-sm font-medium">
+           <Link to="/sample1" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-md font-medium">
              <ArrowLeft size={16} /> Back to Sample 1
            </Link>
             <div className="flex items-center gap-4">
               <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase hidden sm:block">Step 2: Interactive Configurator</h2>
-              <Link to="/extra" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
+              <Link to="/extra" className="text-blue-600 hover:underline flex items-center gap-1 text-md font-medium">
                 Next: Bonus AI Tools <ArrowRight size={16} />
               </Link>
            </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
-          {/* Main Canvas Area (Large) */}
-          <div className="lg:col-span-8 h-[500px] lg:h-[600px] bg-white rounded-3xl shadow-xl overflow-hidden relative border border-gray-200">
-            <div className="absolute top-6 left-6 z-10 pointer-events-none">
-               <h3 className="text-2xl font-bold text-slate-900">Customization</h3>
-               <p className="text-slate-500 text-sm">Interact with the model in real-time</p>
-            </div>
-
-            <Canvas camera={{ position: [0, 1, 5], fov: 40 }} shadows>
+        <div className="grid lg:grid-cols-12 gap-8 mb-12">
+          {/* 3D Viewport (Left) */}
+          <div className="lg:col-span-8 h-[500px] lg:h-[600px] bg-slate-900/50 backdrop-blur-sm rounded-3xl overflow-hidden shadow-2xl border border-slate-800 relative group">
+            <Canvas camera={{ position: [0, 0, 4], fov: 45 }} shadows>
               <ambientLight intensity={0.5} />
               
               {/* Fixed Spotlight */}
@@ -107,6 +103,8 @@ const [envPreset, setEnvPreset] = useState("city");
                   color={color} 
                   rotationSpeed={rotationSpeed}
                   enableDistort={true}
+                  distort={distort}
+                  speed={speed}
                 />
                 <Environment preset={envPreset as any} environmentIntensity={envIntensity} />
                 <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2.5} far={4} color={color} />
@@ -152,10 +150,53 @@ const [envPreset, setEnvPreset] = useState("city");
                   </div>
                 </div>
 
+                {/* Distortion Controls */}
+                <div className="space-y-4 pt-4 border-t border-slate-800">
+                  <h5 className="font-bold text-slate-100 flex items-center gap-2 text-sm">
+                    <Waves size={18} /> Distortion Effect
+                  </h5>
+                  
+                  {/* Distort Amount */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-slate-400 pl-6">Strength</span>
+                      <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">{distort.toFixed(1)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="1.0"
+                      step="0.1"
+                      value={distort}
+                      onChange={(e) => setDistort(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                    />
+                  </div>
+
+                  {/* Distort Speed */}
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center text-sm">
+                      <div className="flex items-center gap-2 text-slate-400 pl-6">
+                         <Zap size={14} /> Speed
+                      </div>
+                      <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">{speed.toFixed(1)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="10.0"
+                      step="0.5"
+                      value={speed}
+                      onChange={(e) => setSpeed(parseFloat(e.target.value))}
+                      className="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                    />
+                  </div>
+                </div>
+
                 {/* Scale Slider */}
-                <div className="space-y-3">
+                <div className="space-y-3 pt-4 border-t border-slate-800">
                   <div className="flex justify-between items-center text-sm">
-                    <div className="flex items-center gap-2 text-slate-100 font-medium">
+                    <div className="flex items-center gap-2 text-slate-300 font-medium">
                       <ZoomIn size={16} /> Scale
                     </div>
                     <span className="font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded">{scale.toFixed(1)}x</span>
@@ -250,7 +291,7 @@ const [envPreset, setEnvPreset] = useState("city");
       </div>
 
        {/* Code Section (Bottom) */}
-       <div className="w-full bg-slate-900 py-12 px-4 md:px-8 border-t border-slate-800">
+       <div className="w-full py-12 px-4 md:px-8 border-slate-800">
         <div className="max-w-5xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-2">Interactivity Logic</h3>
             <p className="text-slate-400 mb-8">

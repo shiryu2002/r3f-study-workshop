@@ -56,12 +56,12 @@ export default function Scene() {
       <div className="max-w-6xl mx-auto px-4 md:px-8 pb-12">
         {/* Navigation Helper */}
         <div className="flex justify-between items-center mb-8">
-           <Link to="/instruction" className="text-slate-500 hover:text-slate-900 flex items-center gap-1 text-sm font-medium">
+           <Link to="/instruction" className="text-slate-500 hover:text-slate-400 flex items-center gap-1 text-md font-medium">
              <ArrowLeft size={16} /> Back to Docs
            </Link>
            <div className="flex items-center gap-4">
              <h2 className="text-sm font-bold tracking-wider text-slate-400 uppercase hidden sm:block">Step 1: Basic Viewer</h2>
-             <Link to="/sample2" className="text-blue-600 hover:underline flex items-center gap-1 text-sm font-medium">
+             <Link to="/sample2" className="text-blue-600 hover:underline flex items-center gap-1 text-md font-medium">
                Next: Interactive Controls <ArrowRight size={16} />
              </Link>
            </div>
